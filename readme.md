@@ -28,4 +28,4 @@ Discord: Smile.lua.ts#4170
 
 
 # Полезное
-[![yanfei sump](http://i3.ytimg.com/vi/YjMKybm_Lf0/maxresdefault.jpg)](https://www.youtube.com/watch?v=YjMKybm_Lf0)
+[![Make yourself stronger](http://img.youtube.com/vi/PsO6ZnUZI0g/maxresdefault.jpg)](http://www.youtube.com/watch?v=PsO6ZnUZI0g)
