@@ -12,6 +12,8 @@ function Metrostroi.SyncSystem.RecreateWebsocket(port)
 
     local url = Metrostroi.SyncSystem.WebSocketURL .. ":" .. tostring(port) .. "/"
 
+    print(url)
+
     if Metrostroi.SyncSystem.Socket then
         Metrostroi.SyncSystem.Socket:clearQueue()
         Metrostroi.SyncSystem.Socket:closeNow()

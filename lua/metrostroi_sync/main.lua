@@ -28,8 +28,8 @@ function Metrostroi.SyncSystem.Connect(port, password)
     password = password or ""
 
     socket:setHeader( "map", game.GetMap() )
-    socket:setHeader( "name", GetHostName():gsub(" ", "_") )
     socket:setHeader( "prid", tostring(Metrostroi.SyncSystem.ProtocolVersion))
+    socket:setHeader( "port", string.Split(game.GetIPAddress(), ":")[2])
     if password ~= "" then 
     socket:setHeader( "password", password)
     end
