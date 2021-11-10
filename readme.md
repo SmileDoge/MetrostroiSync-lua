@@ -31,4 +31,4 @@ Discord: Smile.lua.ts#4170
 
 
 # Полезное
-[![Make yourself stronger](http://img.youtube.com/vi/PsO6ZnUZI0g/maxresdefault.jpg)](http://www.youtube.com/watch?v=PsO6ZnUZI0g)
+[![Make yourself stronger](http://img.youtube.com/vi/PsO6ZnUZI0g/maxresdefault.jpg)](https://youtu.be/dQw4w9WgXcQ)
