@@ -156,8 +156,40 @@ ENT.ClientProps["mask22_2"] = {
     nohide=true,
 }
 
+ENT.TrainInfo = {
+    fpos_r = Vector(400, -68, -6),
+    fang_r = Angle(0, 0, 90),
+    rpos_r = Vector(-440, -68, -6),
+    rang_r = Angle(0, 0, 90),
+    fpos_l = Vector(409, 68, -6),
+    fang_l = Angle(0, 180, 90),
+    rpos_l = Vector(-400, 68, -6),
+    rang_l = Angle(0, 180, 90),
+    max = 3,
+    haveroute = true,
+}
+
 function ENT:Initialize()
     self.BaseClass.Initialize(self)
+
+    self.RouteNumber = 0
+    self.RouteNumberReloaded = false
+end
+
+function ENT:RouteNumberFunc()
+    local scents = self.ClientEnts
+    if self.RouteNumber ~= self:GetNW2String("RouteNumber","000") then
+        self.RouteNumber = self:GetNW2String("RouteNumber","000")
+        self.RouteNumberReloaded = false
+    end
+    if not scents["route1"] or self.RouteNumberReloaded then return end
+    self.RouteNumberReloaded = true
+    local rn = Format("%03d",tonumber(self.RouteNumber) or 0)
+    for i=1, 2 do
+        if IsValid(scents["route"..i]) then
+            scents["route"..i]:SetSkin(rn[i] or 0)
+        end
+    end
 end
 
 function ENT:Think()
@@ -181,6 +213,8 @@ function ENT:Think()
 
     self:ShowHide("handrails_old",not kvr)
     self:ShowHide("handrails_new",kvr)
+
+    self:RouteNumberFunc()
 
     for i=0,3 do
         for k=0,1 do

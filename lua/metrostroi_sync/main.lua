@@ -123,7 +123,7 @@ function Metrostroi.SyncSystem.Refresh()
             cabtexture = ent:GetNW2String("CabTexture"),
     
             newseats = ent:GetNW2Bool("NewSeats"),
-            route_number = ent:GetNW2String("RouteNumber") or "000",
+            route_number = ent:GetNW2String("RouteNumber"),
     
             pos = ent:GetPos(),
             ang = ent:GetAngles(),
@@ -160,7 +160,7 @@ function Metrostroi.SyncSystem.Refresh()
             bogey_front_ang = ent.FrontBogey:GetAngles(),
             bogey_rear_ang  = ent.RearBogey:GetAngles(),
     
-            route_number = ent:GetNW2String("RouteNumber") or "000",
+            route_number = ent:GetNW2String("RouteNumber"),
         }
 
         return obj

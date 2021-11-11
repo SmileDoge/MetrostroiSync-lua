@@ -14,6 +14,60 @@ net.Receive("MetrostroiSync-chat", function()
         Color(255, 255, 255), ": " .. text)
 end)
 
+local trainClasses = {
+    ["gmod_subway_sync_81-714_lvz"] = true,
+    ["gmod_subway_sync_81-714_msk"] = true,
+    ["gmod_subway_sync_81-717_lvz"] = true,
+    ["gmod_subway_sync_81-717_msk"] = true,
+}
+
+surface.CreateFont( "MetrostroiSync-train-info", {
+	font = "Arial",
+	extended = true,
+	size = 100,
+	weight = 100,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = false,
+} )
+
+hook.Add("PostDrawTranslucentRenderables", "MetrostroiSync-draw-info", function(_,isDD)
+    for class in pairs(trainClasses) do 
+        for k, train in pairs(ents.FindByClass(class)) do
+            
+
+            local info = train.TrainInfo
+
+            local dist = 1024
+
+            if LocalPlayer():GetPos():DistToSqr(train:GetPos()) > dist*dist then goto cont end
+
+            cam.Start3D2D(train:LocalToWorld(Vector(0, 0, 100)), train:LocalToWorldAngles(Angle(0, 90, 90)), 0.1)
+                draw.SimpleText("Владелец: " .. train:GetNW2String("OwnerNick"), "MetrostroiSync-train-info", 0, 0, Color(0,255,0), TEXT_ALIGN_CENTER)
+                if info.haveroute then
+                draw.SimpleText("Маршрут: " .. train:GetNW2String("RouteNumber"):sub(1, info.max), "MetrostroiSync-train-info", 0, 100, Color(0,255,0), TEXT_ALIGN_CENTER)
+                end
+            cam.End3D2D()
+
+            cam.Start3D2D(train:LocalToWorld(Vector(0, 0, 100)), train:LocalToWorldAngles(Angle(0, -90, 90)), 0.1)
+                draw.SimpleText("Владелец: " .. train:GetNW2String("OwnerNick"), "MetrostroiSync-train-info", 0, 0, Color(0,255,0), TEXT_ALIGN_CENTER)
+                if info.haveroute then
+                draw.SimpleText("Маршрут: " .. train:GetNW2String("RouteNumber"):sub(1, info.max), "MetrostroiSync-train-info", 0, 100, Color(0,255,0), TEXT_ALIGN_CENTER)
+                end
+            cam.End3D2D()
+
+            ::cont::
+        end
+    end
+end)
 
 local function GetInfo(Append)
     http.Fetch(Metrostroi.SyncSystem.WebAPI .. "/get-servers", function(body)

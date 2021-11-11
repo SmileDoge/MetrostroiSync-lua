@@ -8,11 +8,11 @@ else
     MsgC(Color(0,255,0), "Metrostroi Sync - Модуль gwsockets успешно включен\n")
 end
 
+local util_TableToJSON = util.TableToJSON
+
 function Metrostroi.SyncSystem.RecreateWebsocket(port)
 
     local url = Metrostroi.SyncSystem.WebSocketURL .. ":" .. tostring(port) .. "/"
-
-    print(url)
 
     if Metrostroi.SyncSystem.Socket then
         Metrostroi.SyncSystem.Socket:clearQueue()
@@ -42,7 +42,7 @@ function Metrostroi.SyncSystem.RecreateWebsocket(port)
     end
 
     function socket:writeJSON(typ, data)
-        self:write(util.TableToJSON({type = typ, data = data}))
+        self:write(util_TableToJSON({type = typ, data = data}))
     end
 
     function socket:on(typ, callback)

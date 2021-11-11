@@ -121,6 +121,25 @@ ENT.ClientProps["door2"] = {
     ang = Angle(0,-90,0),
     hide=2,
 }
+ENT.ClientProps["otsek_cap_r"] = {
+    model = "models/metrostroi_train/81-717/otsek_cap_r.mdl",
+    pos = Vector(0,0,0),
+    ang = Angle(0,0,0),
+    hideseat=0.8,
+}
+
+ENT.TrainInfo = {
+    fpos_r = Vector(400, -68, -6),
+    fang_r = Angle(0, 0, 90),
+    rpos_r = Vector(-440, -68, -6),
+    rang_r = Angle(0, 0, 90),
+    fpos_l = Vector(415, 68, -6),
+    fang_l = Angle(0, 180, 90),
+    rpos_l = Vector(-400, 68, -6),
+    rang_l = Angle(0, 180, 90),
+    max = 2,
+    haveroute = false,
+}
 
 function ENT:Initialize()
     self.BaseClass.Initialize(self)
@@ -137,8 +156,12 @@ function ENT:Think()
     self:ShowHide("seats_old",not newSeats)
     self:ShowHide("seats_new",newSeats)
 
+    self:ShowHide("seats_old_cap_o",false)
+    self:ShowHide("seats_new_cap_o",false)
     self:ShowHide("seats_old_cap",not newSeats)
     self:ShowHide("seats_new_cap",newSeats)
+
+    self:ShowHide("otsek_cap_r", true)
 
     for i=0,3 do
         for k=0,1 do

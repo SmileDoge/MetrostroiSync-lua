@@ -121,6 +121,19 @@ ENT.ClientProps["door3x0"] = {
     hide = 2.0,
 }
 
+ENT.TrainInfo = {
+    fpos_r = Vector(400, -68, -6),
+    fang_r = Angle(0, 0, 90),
+    rpos_r = Vector(-440, -68, -6),
+    rang_r = Angle(0, 0, 90),
+    fpos_l = Vector(415, 68, -6),
+    fang_l = Angle(0, 180, 90),
+    rpos_l = Vector(-400, 68, -6),
+    rang_l = Angle(0, 180, 90),
+    max = 2,
+    haveroute = false,
+}
+
 function ENT:Initialize()
     self.BaseClass.Initialize(self)
 end

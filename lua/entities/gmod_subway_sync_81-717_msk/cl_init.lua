@@ -145,8 +145,68 @@ ENT.ClientProps["mask141_mvm"] = {
     nohide=true,
 }
 
+ENT.ClientProps["route"] = {
+    model = "models/metrostroi_train/common/routes/ezh/route_holder.mdl",
+    pos = Vector(-8,0,-5.65),
+    ang = Angle(0,1,0),
+    hide = 2,
+}
+
+ENT.ClientProps["route1"] = {
+    model = "models/metrostroi_train/common/routes/ezh/route_number1.mdl",
+    pos = ENT.ClientProps["route"].pos,
+    ang = ENT.ClientProps["route"].ang,
+    skin=6,
+    hide = 2,
+    callback = function(ent)
+        ent.RouteNumberReloaded = false
+    end,
+}
+ENT.ClientProps["route2"] = {
+    model = "models/metrostroi_train/common/routes/ezh/route_number2.mdl",
+    pos = ENT.ClientProps["route"].pos,
+    ang = ENT.ClientProps["route"].ang,
+    skin=1,
+    hide = 2,
+    callback = function(ent)
+        ent.RouteNumberReloaded = false
+    end,
+}
+
+ENT.TrainInfo = {
+    fpos_r = Vector(400, -68, -6),
+    fang_r = Angle(0, 0, 90),
+    rpos_r = Vector(-440, -68, -6),
+    rang_r = Angle(0, 0, 90),
+    fpos_l = Vector(409, 68, -6),
+    fang_l = Angle(0, 180, 90),
+    rpos_l = Vector(-400, 68, -6),
+    rang_l = Angle(0, 180, 90),
+    max = 2,
+    haveroute = true,
+}
+
 function ENT:Initialize()
     self.BaseClass.Initialize(self)
+
+    self.RouteNumber = 0
+    self.RouteNumberReloaded = false
+end
+
+function ENT:RouteNumberFunc()
+    local scents = self.ClientEnts
+    if self.RouteNumber ~= self:GetNW2String("RouteNumber","000") then
+        self.RouteNumber = self:GetNW2String("RouteNumber","000")
+        self.RouteNumberReloaded = false
+    end
+    if not scents["route1"] or self.RouteNumberReloaded then return end
+    self.RouteNumberReloaded = true
+    local rn = Format("%03d",tonumber(self.RouteNumber) or 0)
+    for i=1, 2 do
+        if IsValid(scents["route"..i]) then
+            scents["route"..i]:SetSkin(rn[i] or 0)
+        end
+    end
 end
 
 function ENT:Think()
@@ -170,6 +230,8 @@ function ENT:Think()
 
     self:ShowHide("handrails_old",not dot5)
     self:ShowHide("handrails_new",dot5)
+
+    self:RouteNumberFunc()
 
     for i=0,3 do
         for k=0,1 do
